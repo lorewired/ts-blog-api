@@ -1,13 +1,13 @@
-import { IGetMessageRepository, IGetMessagesController } from "./protocols";
+import { IGetMessagesRepository, IGetMessagesController } from "./protocols";
 
 export class GetUserController implements IGetMessagesController {
-  constructor(private readonly getUsersRepository: IGetMessageRepository) {
-    this.getUsersRepository = getUsersRepository;
+  constructor(private readonly getMessagesRespository: IGetMessagesRepository) {
+    this.getMessagesRespository = getMessagesRespository;
   }
 
   async handle() {
     try {
-      const users = await this.getUsersRepository.getUsers();
+      const users = await this.getMessagesRespository.getUsers();
 
       return {
         statusCode: 200,

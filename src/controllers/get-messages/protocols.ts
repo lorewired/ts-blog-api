@@ -5,6 +5,6 @@ export interface IGetMessagesController {
   handle(): Promise<HttpResponse<Message[]>>;
 }
 
-export interface IGetMessageRepository {
+export interface IGetMessagesRepository {
   getUsers(): Promise<Message[]>;
 }
