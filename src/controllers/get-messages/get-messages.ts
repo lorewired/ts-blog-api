@@ -1,6 +1,7 @@
-import { IGetMessagesRepository, IGetMessagesController } from "./protocols";
+import { IController } from "../protocols";
+import { IGetMessagesRepository } from "./protocols";
 
-export class GetUserController implements IGetMessagesController {
+export class GetUserController implements IController {
   constructor(private readonly getMessagesRespository: IGetMessagesRepository) {
     this.getMessagesRespository = getMessagesRespository;
   }
