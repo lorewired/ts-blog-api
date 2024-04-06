@@ -9,13 +9,13 @@ export class MongoCreateMessageRepository implements ICreateMessageRepository {
          .insertOne(params);
 
       const message = await MongoClient.db
-         .collection("messages")
+         .collection<Omit<Message, "id">>("messages")
          .findOne(insertedId);
 
       if (!message) {
          throw new Error("Message not created");
       }
 
-      return message.map(({_id, ...rest}) => ({id: _id.toHexString(), ...rest}));
+      return MongoClient.convertToMessage(message);
    }
 }

@@ -21,7 +21,6 @@ export class MongoUpdateMessageRepository implements IUpdateMessageRepository {
          throw new Error("Message not updated");
       }
 
-      const { _id, ...rest } = message;
-      return { id: _id.toHexString(), ...rest }
+      return MongoClient.convertToMessage(message);
    }
 }

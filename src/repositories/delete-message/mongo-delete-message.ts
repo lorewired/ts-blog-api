@@ -21,7 +21,6 @@ export class MongoDeleteMessageRepository implements IDeleteMessageRepository {
          throw new Error("Message not deleted");
       }
 
-      const {_id, ...rest} = message;
-      return { id: _id.toHexString(), ...rest }
+      return MongoClient.convertToMessage(message);
    }
 } 

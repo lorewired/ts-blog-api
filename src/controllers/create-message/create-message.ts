@@ -1,4 +1,5 @@
 import { Message } from "../../models/Message";
+import { badRequest, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, IController } from "../protocols";
 import { CreateMessageParams, ICreateMessageRepository } from "./protocols";
 
@@ -7,33 +8,22 @@ export class CreateMessageController implements IController {
       this.createMessageRepository = createMessageRepository;
    }
    
-   async handle(httpRequest: HttpRequest<CreateMessageParams>): Promise<HttpResponse<Message>>{
+   async handle(httpRequest: HttpRequest<CreateMessageParams>): Promise<HttpResponse<Message | string>>{
       try {
          const requiredFields = ["author", "text", "date"];
          const { body } = httpRequest;
 
-         if (!body) return { statusCode: 400, body: "Please specify a body" }
+         if (!body) return badRequest("body is required");
 
          for (const field of requiredFields){
-            if (!body[field]?.length){
-               return {
-                  statusCode: 400,
-                  body: `Field ${field} is required`
-               }
-            }
+            if (!body[field]?.length) return badRequest(`Field ${field} is required`);
          }
 
          const message = await this.createMessageRepository.createMessage(body!);
          
-         return {
-            statusCode: 201,
-            body: message
-         }
+         return ok(message);
       } catch (error) {
-         return {
-            statusCode: 500,
-            body: "something went wrong"
-         }
+         return serverError();
       }
    }
 }
