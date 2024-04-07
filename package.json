@@ -4,7 +4,8 @@
    "description": "��#\u0000 \u0000t\u0000s\u0000-\u0000b\u0000l\u0000o\u0000g\u0000-\u0000a\u0000p\u0000i\u0000\r\u0000 \u0000",
    "main": "index.js",
    "scripts": {
-     "start:dev": "nodemon --exec npx ts-node src/index.ts"
+     "start:dev": "nodemon --exec npx ts-node src/index.ts",
+     "build": "esbuild index=./src --bundle --minify --outdir=dist --packages=external --platform=node"
    },
    "author": "",
    "license": "ISC",
