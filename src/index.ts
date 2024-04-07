@@ -9,6 +9,7 @@ import { MongoGetMessagesRepository } from "./repositories/get-messages/mongo-ge
 import { MongoUpdateMessageRepository } from "./repositories/update-message/mongo-update-message";
 import { MongoDeleteMessageRepository } from "./repositories/delete-message/mongo-delete-message";
 import { DeleteMessageController } from "./controllers/delete-message/delete-message";
+import cors from 'cors'
 
 // load .env variables
 config();
@@ -23,6 +24,9 @@ const main = async () => {
   
   // middleware convert body to json
   app.use(express.json());
+
+  // middleware cors
+  app.use(cors());
 
   // middleware logger
   app.use((req, res, next) => {
