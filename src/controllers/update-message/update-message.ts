@@ -22,7 +22,9 @@ export class UpdateMessageController implements IController {
             .some(key => !allowedToUpdate.includes(key as keyof UpdateMessageParams));
 
          if (someFieldsIsNotAllowed){
-            return badRequest("Some field is not allowed to update");
+            const notAllowedFields = Object.keys(body)
+                .filter(key => !allowedToUpdate.includes(key as keyof UpdateMessageParams));
+            return badRequest(`The following fields are not allowed to update: ${notAllowedFields.join(", ")}`);
          }
 
          const message = await this.updateMessageRepository.updateMessage(id, body);
