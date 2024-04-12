@@ -15,8 +15,8 @@ export class CreateMessageController implements IController {
 
          if (!body) return badRequest("body is required");
 
-         for (const field of requiredFields){
-            if (!body[field]?.length) return badRequest(`Field ${field} is required`);
+         for (const field of requiredFields) {
+            if (!body[field].length) return badRequest(`${field} is missing`);
          }
 
          const message = await this.createMessageRepository.createMessage(body!);
